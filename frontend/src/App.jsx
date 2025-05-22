@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/home';
+import './index.css'
+import './App.css'
 
 function App() {
 
