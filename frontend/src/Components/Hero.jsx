@@ -28,9 +28,16 @@ function  Hero(){
               <Button size="lg">
                 Create Your End Page <ArrowRight className="ml-2" size={20} />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => {
+                  window.location.href = "/#showcase";
+                }}
+              >
                 See Examples
               </Button>
+
             </div>
           </div>
 
