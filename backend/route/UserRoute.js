@@ -1,6 +1,6 @@
 import express from "express";
-// import upload from "../middleware/upload.js";
-// import authenticate from "../middleware/authentificate.js";
+import upload from "../middleware/Upload.js";
+import authenticate from "../middleware/authentificate.js";
 
 function AuthUsersRoute(authUsersController) {
   const router = express.Router();

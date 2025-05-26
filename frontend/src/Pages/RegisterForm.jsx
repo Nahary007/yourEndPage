@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
+import axios from "axios";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,14 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
+
+  const [image, setImage] = useState(null);
+
+  const handleFileChange = (e) => {
+  setImage(e.target.files[0]);
+};
 
   const [passwordStrength, setPasswordStrength] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,12 +72,43 @@ const RegisterForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+
+    if (form.password !== form.confirmPassword) {
+      alert("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("firstname", form.firstname);
+      formData.append("lastname", form.lastname);
+      formData.append("email", form.email);
+      formData.append("password", form.password);
+      formData.append("image", image);
+
+      const res = await axios.post("http://localhost:4000/api/auth/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      navigate("/homePage");
+    } catch (error) {
+      alert(error.response?.data?.error || "Une erreur est survenue.");
+    }
+  };
+
   return (
     <>
       <Header />
         <div className="flex flex-col items-center justify-center  w-screen h-screen p-6 bg-gradient-to-br from-gray-900 via-purple-950 to-black">
             <motion.form
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.6 }}
@@ -136,7 +176,7 @@ const RegisterForm = () => {
               <div className="flex items-center justify-center">
                 <span className="font-normal text-gray-600">Click to upload image</span>
               </div>
-              <input type="file" id="file" className="hidden" />
+              <input type="file" id="file" className="hidden" name="image" onChange={handleFileChange} accept="image/*" required/>
             </label>
           </div>
 
