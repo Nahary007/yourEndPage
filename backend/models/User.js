@@ -1,5 +1,4 @@
 import { EntitySchema } from "typeorm";
-// import TemplatePage from "./TemplatePage.js";
 
 const User = new EntitySchema({
   name: "User",
