@@ -85,29 +85,35 @@ const Header2 = () => {
             </button>
 
             {/* Dropdown */}
-            {open && (
+            {open && user && (
               <div
                 className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl border border-gray-200 z-50 p-2"
                 onMouseEnter={() => setOpen(true)}
               >
                 <legend className="text-xs uppercase text-gray-500 px-4 py-1">Quick Start</legend>
                 <ul className="space-y-2">
-                  {[{ to: '/profile/view', icon: '👁️', label: 'View profile' },
-                    { to: '/profile/update', icon: '✏️', label: 'Update profile' },
-                    { to: '/profile/delete', icon: '🗑️', label: 'Delete profile' },
-                  ].map((item) => (
-                    <li key={item.to}>
-                      <Link
-                        to={item.to}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gradient-to-br from-gray-900 via-purple-950 to-black hover:text-white"
-                      >
-                        <span>{item.icon}</span>
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-
+                  <li>
+                    <Link
+                      to="/profile/update"
+                      state={{ userId: user._id }}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gradient-to-br from-gray-900 via-purple-950 to-black hover:text-white"
+                    >
+                      <span>✏️</span>
+                      Update profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/profile/delete"
+                      state={{ userId: user._id }}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gradient-to-br from-gray-900 via-purple-950 to-black hover:text-white"
+                    >
+                      <span>🗑️</span>
+                      Delete profile
+                    </Link>
+                  </li>
                   <li>
                     <button
                       onClick={() => {
@@ -122,6 +128,7 @@ const Header2 = () => {
                 </ul>
               </div>
             )}
+
           </div>
         </nav>
 
