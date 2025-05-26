@@ -23,7 +23,7 @@ class UserController {
     async login(req, res) {
         try {
             const { email, password } = req.body;
-            const token = await this.authUsersService.login(email, password);
+            const token = await this.UserService.login(email, password);
             res.json({ token });
         } catch (error) {
             res.status(401).json({ error: error.message });
@@ -33,7 +33,7 @@ class UserController {
     async getCurrentUser(req, res) {
         try {
             const userId = req.user.id;
-            const user = await this.authUsersService.getUserById(userId);
+            const user = await this.UserService.getUserById(userId);
             res.json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -44,7 +44,7 @@ class UserController {
         try {
             const { id } = req.params;
             const { username, email, password } = req.body;
-            const updatedUser = await this.authUsersService.updateUser(id, username, email, password);
+            const updatedUser = await this.UserService.updateUser(id, username, email, password);
             res.json(updatedUser);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -63,7 +63,7 @@ class UserController {
 
     async getAllUsers(req, res) {
         try {
-            const users = await this.authUsersService.getAllUsers();
+            const users = await this.UserService.getAllUsers();
             res.json(users);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -73,7 +73,7 @@ class UserController {
     async getUserById(req, res) {
         try {
             const { id } = req.params;
-            const user = await this.authUsersService.getUserById(id);
+            const user = await this.UserService.getUserById(id);
             if (!user) {
                 return res.status(404).json({ message: "Utilisateur non trouvé" });
             }
