@@ -6,6 +6,7 @@ import LoginForm from './Pages/LoginForm';
 import HomePage from './Pages/homePage';
 import ProtectedRoute from './ProtectedRoute';
 import UpdateProfile from './Pages/UpdateProfile';
+import Myposts from './Pages/Myposts';
 import './index.css'
 import './App.css'
 
@@ -27,6 +28,14 @@ function App() {
         /> 
         <Route
           path="/profile/update"
+          element={
+            <ProtectedRoute>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        /> 
+        <Route
+          path="/myposts"
           element={
             <ProtectedRoute>
               <UpdateProfile />
