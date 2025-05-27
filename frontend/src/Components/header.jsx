@@ -28,7 +28,7 @@ const Header = () => {
           <span className="text-white font-bold text-2xl">
             <HashLink
             smooth
-            to="/endpage"
+            to="/"
             className="text-gray-300 hover:text-white transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >

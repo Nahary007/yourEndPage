@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
@@ -72,6 +72,8 @@ const RegisterForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -97,12 +99,19 @@ const RegisterForm = () => {
 
       const token = res.data.token;
       localStorage.setItem("token", token);
-      navigate("/homePage");
+      navigate("/home");
     } catch (error) {
       alert(error.response?.data?.error || "Une erreur est survenue.");
     }
   };
 
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  }, [navigate]);
   return (
     <>
       <Header />

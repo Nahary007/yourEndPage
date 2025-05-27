@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Header from "../Components/Header";
-// import axios from 'axios';
+import axios from 'axios';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,16 +19,17 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
-    // try {
-    //   const res = await axios.post('http://localhost:4000/api/auth/login', formData);
-    //   const token = res.data.token;
-    //   localStorage.setItem('token', token);
-    //   setFormData({ email: '', password: '' });
-    //   navigate('/homePage');
-    // } catch (err) {
-    //   console.log(err.response?.data?.message || 'Erreur lors de la connexion ❌');
-    // }
+    try {
+      const res = await axios.post('http://localhost:4000/api/auth/login', formData);
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+      setFormData({ email: '', password: '' });
+      navigate('/home');
+    } catch (err) {
+      console.log(err.response?.data?.message || 'Erreur lors de la connexion ❌');
+    }
   };
 
   return (
@@ -56,7 +58,7 @@ const LoginForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700 mb-1">Mot de passe</label>
+            <label className="block text-gray-700 mb-1">Password</label>
             <input
               type="password"
               name="password"
@@ -67,6 +69,10 @@ const LoginForm = () => {
             />
           </div>
 
+
+          {error && (
+            <div className="text-red-600 text-center mb-2">{error}</div>
+          )}
           <button
             type="submit"
             className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition"
