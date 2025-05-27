@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Pencil } from 'lucide-react';
 import Header2 from '../Components/header2';
+import backgroundImage from '../assets/background.png';
 
 const UpdateProfile = () => {
   const [user, setUser] = useState(null);
@@ -87,21 +88,38 @@ const UpdateProfile = () => {
   return (
     <>
     <Header2 />
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-xl mx-auto px-4 py-10 bg-white rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Modifier mon profil</h1>
+
+    <div
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Aucun overlay ici, image visible directement */}
+
+      <div className="relative z-10 w-full max-w-xl backdrop-blur-md bg-white/20 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-md">
+          Modifier mon profil
+        </h1>
 
         {successMessage && (
-          <div className="mb-6 p-3 text-green-600 font-semibold bg-green-50 rounded-md text-center">
+          <div className="mb-6 p-3 text-green-100 font-semibold bg-green-600/70 rounded-md text-center">
             {successMessage}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+          className="space-y-6 text-white"
+        >
           {/* Photo de profil */}
-          <div className="flex flex-col items-center mb-8">
+          <div className="flex flex-col items-center">
             <div className="relative group">
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md">
                 <img
                   src={
                     user.preview
@@ -115,11 +133,10 @@ const UpdateProfile = () => {
                 />
               </div>
 
-              {/* Bouton édition */}
               <button
                 type="button"
                 onClick={triggerFileInput}
-                className="absolute bottom-4 right-0 bg-purple-600 text-white p-2 rounded-full shadow-lg hover:bg-purple-700 transition-colors duration-200"
+                className="absolute bottom-2 right-0 bg-purple-600 text-white p-2 rounded-full shadow-lg hover:bg-purple-700 transition"
                 aria-label="Modifier la photo"
               >
                 <Pencil size={16} />
@@ -134,55 +151,53 @@ const UpdateProfile = () => {
                 id="profile-image"
               />
             </div>
-            <label htmlFor="profile-image" className="text-sm text-gray-500 mt-2">
+            <label htmlFor="profile-image" className="text-sm text-white/80 mt-2">
               Cliquez sur l'icône crayon pour changer votre photo
             </label>
           </div>
 
-          {/* Informations personnelles */}
+          {/* Champs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block mb-1 font-medium text-gray-700">Firstname</label>
+              <label className="block mb-1 font-medium">Prénom</label>
               <input
                 type="text"
                 name="firstname"
                 value={user.firstname || ''}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full p-3 rounded-md bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
             </div>
-
             <div>
-              <label className="block mb-1 font-medium text-gray-700">Lastname</label>
+              <label className="block mb-1 font-medium">Nom</label>
               <input
                 type="text"
                 name="lastname"
                 value={user.lastname || ''}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full p-3 rounded-md bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">Email</label>
+            <label className="block mb-1 font-medium">Email</label>
             <input
               type="email"
               name="email"
               value={user.email || ''}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full p-3 rounded-md bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             />
           </div>
 
-          {/* Bouton */}
-          <div className="mt-8">
+          <div className="pt-4">
             <button
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-200 shadow-md"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-md transition-colors duration-200 shadow-md"
             >
               Enregistrer les modifications
             </button>
@@ -190,6 +205,7 @@ const UpdateProfile = () => {
         </form>
       </div>
     </div>
+
     </>
   );
 };
