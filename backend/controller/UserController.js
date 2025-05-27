@@ -43,8 +43,17 @@ class UserController {
     async updateUser(req, res) {
         try {
             const { id } = req.params;
-            const { username, email, password } = req.body;
-            const updatedUser = await this.UserService.updateUser(id, username, email, password);
+            const { firstname, lastname, email, password } = req.body;
+            const imagePath = req.file ? req.file.filename : null;
+
+            const updatedUser = await this.UserService.updateUser(
+                id,
+                firstname,
+                lastname,
+                email,
+                password,
+                imagePath
+            );
             res.json(updatedUser);
         } catch (error) {
             res.status(400).json({ error: error.message });
