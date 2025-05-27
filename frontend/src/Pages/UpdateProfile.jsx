@@ -68,7 +68,7 @@ const UpdateProfile = () => {
     }
 
     try {
-      await axios.post("http://localhost:4000/api/auth/update", formData, {
+      await axios.put(`http://localhost:4000/api/auth/update/${user.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -77,9 +77,15 @@ const UpdateProfile = () => {
 
       setSuccessMessage("Profil mis à jour avec succès !");
       setTimeout(() => setSuccessMessage(''), 3000);
+// ...existing code...
     } catch (err) {
-      setError("Erreur lors de la mise à jour du profil.");
+      console.error("Erreur axios:", err);
+      setError(
+        JSON.stringify(err.response?.data) ||
+        "Erreur lors de la mise à jour du profil."
+      );
     }
+// ...existing code...
   };
 
   if (loading) return <div className="p-4">Chargement...</div>;
