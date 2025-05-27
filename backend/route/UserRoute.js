@@ -8,6 +8,7 @@ function AuthUsersRoute(authUsersController) {
   router.post('/register', upload.single("image"), (req, res) => authUsersController.register(req, res));
   router.post('/login', (req, res) => authUsersController.login(req, res));
   router.put('/update/:id', authenticate, upload.single("image"), (req, res) => authUsersController.updateUser(req, res));
+  router.delete('/delete/:id', (req, res) => authUsersController.deleteUser(req, res));
 
 
   // Nouvelle route protégée
