@@ -1,4 +1,5 @@
 import { EntitySchema } from "typeorm";
+import ContentPage from "./ContentPage.js";
 
 const User = new EntitySchema({
   name: "User",
@@ -29,14 +30,14 @@ const User = new EntitySchema({
       nullable: true,
     },
   },
-//   relations: {
-//     TemplatePage: {
-//       type: "one-to-many",
-//       target: "TemplatePage",
-//       inverseSide: "user",
-//       cascade: true,
-//     },
-//   },
+  relations: {
+    contentPage: {
+      type: "one-to-many",
+      target: "ContentPage",
+      inverseSide: "user",
+      cascade: true,
+    },
+  },
 });
 
 export default User;

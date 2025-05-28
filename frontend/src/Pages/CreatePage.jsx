@@ -80,24 +80,27 @@ const CreatePage = () => {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Créer une page</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-200px)] min-h-[500px]">
-          <div className="h-full">
-            <FormSection
-              pageData={pageData}
-              onChange={handleChange}
-              onImageUpload={handleImageUpload}
-              onGifUpload={handleGifUpload}
-              onSave={handleSave}
-            />
-          </div>
+<div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-150px)]">
+  {/* Section formulaire avec scroll */}
+  <div className="w-full lg:w-1/2 h-full overflow-y-auto bg-white rounded-lg shadow p-4">
+    <FormSection
+      pageData={pageData}
+      onChange={handleChange}
+      onImageUpload={handleImageUpload}
+      onGifUpload={handleGifUpload}
+      onSave={handleSave}
+    />
+  </div>
 
-          <div className="h-full">
-            <PreviewSection
-              pageData={pageData}
-              onGifPositionChange={handleGifPositionChange}
-            />
-          </div>
-        </div>
+  {/* Section preview fixe */}
+  <div className="w-full lg:w-1/2 h-full overflow-hidden bg-gray-200 rounded-lg shadow p-4">
+    <PreviewSection
+      pageData={pageData}
+      onGifPositionChange={handleGifPositionChange}
+    />
+  </div>
+</div>
+
       </div>
 
       <SaveModal
