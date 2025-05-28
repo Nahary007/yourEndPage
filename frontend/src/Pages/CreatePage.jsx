@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import FormSection from '../Components/FormSection';
 import PreviewSection from '../Components/PreviewSection';
 import SaveModal from '../Components/SaveModal';
+import Header2 from '../Components/header2';
+import backgroundImage from '../assets/background.png'; // Assure-toi que l'image existe
 import { fileToDataUrl, savePageData, exportToPDF, shareContent } from './utils';
-
 
 const CreatePage = () => {
   const [pageData, setPageData] = useState({
@@ -76,42 +77,51 @@ const CreatePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Créer une page</h1>
+    <>
+      <Header2 />
+      <div
+        className="min-h-screen flex items-center justify-center relative overflow-hidden p-4"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <div className="relative z-10 w-full max-w-7xl">
+          <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-150px)]">
+            {/* Form Section */}
+            <div className="w-full lg:w-1/2 h-full overflow-y-auto backdrop-blur-md bg-white/20 rounded-lg shadow-lg p-6 text-white">
+              <FormSection
+                pageData={pageData}
+                onChange={handleChange}
+                onImageUpload={handleImageUpload}
+                onGifUpload={handleGifUpload}
+                onSave={handleSave}
+              />
+            </div>
 
-<div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-150px)]">
-  {/* Section formulaire avec scroll */}
-  <div className="w-full lg:w-1/2 h-full overflow-y-auto bg-white rounded-lg shadow p-4">
-    <FormSection
-      pageData={pageData}
-      onChange={handleChange}
-      onImageUpload={handleImageUpload}
-      onGifUpload={handleGifUpload}
-      onSave={handleSave}
-    />
-  </div>
+            {/* Preview Section */}
+            <div className="w-full lg:w-1/2 h-full overflow-hidden backdrop-blur-md bg-white/20 rounded-lg shadow-lg p-6 text-white">
+              <PreviewSection
+                pageData={pageData}
+                onGifPositionChange={handleGifPositionChange}
+              />
+            </div>
+          </div>
+        </div>
 
-  {/* Section preview fixe */}
-  <div className="w-full lg:w-1/2 h-full overflow-hidden bg-gray-200 rounded-lg shadow p-4">
-    <PreviewSection
-      pageData={pageData}
-      onGifPositionChange={handleGifPositionChange}
-    />
-  </div>
-</div>
-
+        {/* Modal toujours en dehors pour couvrir toute la page */}
+        <SaveModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          pageData={pageData}
+          onSave={handleFinalSave}
+          onExportPDF={handleExportPDF}
+          onShare={handleShare}
+        />
       </div>
-
-      <SaveModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        pageData={pageData}
-        onSave={handleFinalSave}
-        onExportPDF={handleExportPDF}
-        onShare={handleShare}
-      />
-    </div>
+    </>
   );
 };
 
