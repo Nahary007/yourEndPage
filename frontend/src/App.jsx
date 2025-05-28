@@ -6,6 +6,8 @@ import LoginForm from './Pages/LoginForm';
 import HomePage from './Pages/homePage';
 import ProtectedRoute from './ProtectedRoute';
 import UpdateProfile from './Pages/UpdateProfile';
+import CreatePage from './Pages/CreatePage';
+import Myposts from './Pages/Myposts';
 import './index.css'
 import './App.css'
 
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/auth" element={<LoginForm />} /> 
+        <Route path="/CreateEndPage" element={<CreatePage />} /> 
         <Route
           path="/home"
           element={
@@ -27,6 +30,14 @@ function App() {
         /> 
         <Route
           path="/profile/update"
+          element={
+            <ProtectedRoute>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        /> 
+        <Route
+          path="/myposts"
           element={
             <ProtectedRoute>
               <UpdateProfile />

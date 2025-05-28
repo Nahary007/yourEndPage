@@ -63,7 +63,7 @@ const Header2 = () => {
         {/* Nav Desktop */}
         <nav className="hidden md:flex items-center space-x-8">
           <HashLink smooth to="/#how-it-works" className="text-gray-300 hover:text-white transition-colors">All Posts</HashLink>
-          <HashLink smooth to="/#showcase" className="text-gray-300 hover:text-white transition-colors">My Posts</HashLink>
+          <HashLink smooth to="/myposts" className="text-gray-300 hover:text-white transition-colors">My Posts</HashLink>
 
           {/* Avatar dropdown */}
           {user && (
@@ -129,9 +129,46 @@ const Header2 = () => {
         <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
           <HashLink smooth to="/#how-it-works" className="text-gray-300 hover:text-white py-2">All Posts</HashLink>
           <HashLink smooth to="/#showcase" className="text-gray-300 hover:text-white py-2">My Posts</HashLink>
-          <Link to="/register" className="text-gray-300 hover:text-white py-2" onClick={() => setIsMenuOpen(false)}>
-            <Button variant="primary" fullWidth>Nahary</Button>
-          </Link>
+  {user && (
+    <div>
+      <Button
+        variant="primary"
+        fullWidth
+        onClick={() => setOpen(!open)}
+      >
+        {user.firstname} {user.lastname}
+      </Button>
+      {open && (
+        <div className="mt-2 bg-white rounded-md shadow-xl z-50 p-2">
+          <legend className="text-xs uppercase text-gray-500 px-4 py-1">Quick Start</legend>
+          <ul className="space-y-2">
+            <li>
+              <Link to="/profile/update" state={{ userId: user._id }} className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100">
+                ✏️ Update profile
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => setShowPopup(true)}
+                className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100"
+              >
+                🗑️ Delete profile
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100"
+              >
+                🚪 Log out
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
+  )}
+
         </div>
       </div>
 
