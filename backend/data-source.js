@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import User from "./models/User.js";
+import ContentPage from "./models/ContentPage.js";
 import 'dotenv/config';
 
 export const AppDataSource = new DataSource({
@@ -9,9 +10,9 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    synchronize: false,
+    synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, ContentPage],
     migrations: [],
     subscribers: [],
 });
