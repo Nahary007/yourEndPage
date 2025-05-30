@@ -1,14 +1,14 @@
 import { Upload, Link, Move } from 'lucide-react';
 import { CATEGORIES } from '../Pages/types';
 
-function FormSection({ pageData, onChange, onImageUpload, onGifUpload, onSave }) {
-  const handleImageUrl = (url) => {
-    onChange({ image: url });
-  };
+function FormSection({ pageData, onChange, onImageUpload,onGifUpload, onSave,onImageUrl, onGifUrl }) {
+  // const handleImageUrl = (url) => {
+  //   onChange({ image: url });
+  // };
 
-  const handleGifUrl = (url) => {
-    onChange({ gif: url });
-  };
+  // const handleGifUrl = (url) => {
+  //   onChange({ gif: url });
+  // };
 
   return (
     <div className="p-6 bg-white/10 backdrop-blur-lg rounded-lg border border-white/20 shadow-2xl h-full overflow-y-auto text-white">
@@ -63,12 +63,19 @@ function FormSection({ pageData, onChange, onImageUpload, onGifUpload, onSave })
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="flex-1">
-                <input
-                  type="url"
-                  placeholder="Entrez l'URL de l'image"
-                  className="w-full p-3 border border-white/30 bg-white/20 text-white placeholder-white/70 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
-                  onChange={(e) => handleImageUrl(e.target.value)}
-                />
+              <input
+                type="url"
+                placeholder="Entrez l'URL de l'image"
+                className="w-full p-3 border border-white/30 bg-white/20 text-white placeholder-white/70 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+                  onChange={(e) => {
+                    onImageUrl(e.target.value);
+                    if (e.target.value) {
+                      // Si URL, on ignore l'upload
+                      document.querySelector('#image-file-input').value = ''; // vide le champ fichier
+                    }
+                  }}
+              />
+
               </div>
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600">
@@ -78,9 +85,12 @@ function FormSection({ pageData, onChange, onImageUpload, onGifUpload, onSave })
             </div>
             <div className="relative">
               <input
-                type="file"
-                accept="image/*"
-                onChange={onImageUpload}
+                  id="image-file-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    onImageUpload(e);
+                  }}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div className="p-4 border-2 border-dashed border-white/30 text-white rounded-lg hover:border-indigo-500 transition-colors duration-200">
@@ -103,7 +113,7 @@ function FormSection({ pageData, onChange, onImageUpload, onGifUpload, onSave })
                   type="url"
                   placeholder="Entrez l'URL du GIF"
                   className="w-full p-3 border border-white/30 bg-white/20 text-white placeholder-white/70 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
-                  onChange={(e) => handleGifUrl(e.target.value)}
+                  onChange={(e) => onGifUrl(e.target.value)}
                 />
               </div>
               <div className="flex-shrink-0">
