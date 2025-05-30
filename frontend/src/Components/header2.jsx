@@ -64,6 +64,7 @@ const Header2 = () => {
         <nav className="hidden md:flex items-center space-x-8">
           <HashLink smooth to="/#how-it-works" className="text-gray-300 hover:text-white transition-colors">All Posts</HashLink>
           <HashLink smooth to="/myposts" className="text-gray-300 hover:text-white transition-colors">My Posts</HashLink>
+          <HashLink smooth to="/CreateEndPage" className="text-gray-300 hover:text-white py-2">Create Page</HashLink>
 
           {/* Avatar dropdown */}
           {user && (
@@ -129,6 +130,7 @@ const Header2 = () => {
         <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
           <HashLink smooth to="/#how-it-works" className="text-gray-300 hover:text-white py-2">All Posts</HashLink>
           <HashLink smooth to="/#showcase" className="text-gray-300 hover:text-white py-2">My Posts</HashLink>
+          <HashLink smooth to="/CreateEndPage" className="text-gray-300 hover:text-white py-2">Create Page</HashLink>
   {user && (
     <div>
       <Button

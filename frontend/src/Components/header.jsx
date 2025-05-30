@@ -39,7 +39,7 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex items-center space-x-8">
-          <HashLink
+          {/* <HashLink
             smooth
             to="/#how-it-works"
             className="text-gray-300 hover:text-white transition-colors"
@@ -61,7 +61,7 @@ const Header = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             FAQ
-          </Link>
+          </Link> */}
           <Link 
             to="/auth" 
             className="text-gray-300 hover:text-white transition-colors"

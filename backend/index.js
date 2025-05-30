@@ -8,6 +8,10 @@ import UserController from "./controller/UserController.js";
 import AuthUsersRepository from "./repository/UserRepository.js";
 import AuthUsersRoute from "./route/UserRoute.js";
 import AuthUsersService from "./service/UserService.js";
+import PageController from "./controller/PageController.js";
+import PageRepository from "./repository/PageRepository.js";
+import PageService from "./service/PageService.js";
+import PageRoute from "./route/PageRoute.js";
 
 
 const app = express();
@@ -35,7 +39,12 @@ AppDataSource.initialize()
         const authUsersService = new AuthUsersService(authUsersRepository);
         const authUsersController = new UserController(authUsersService);
 
+        const pageRepository = new PageRepository(AppDataSource);
+        const pageService = new PageService(pageRepository);
+        const pageController = new PageController(pageService);
+
         app.use('/api/auth', AuthUsersRoute(authUsersController));
+        app.use('/api/page', PageRoute(pageController));
 
         app.listen(port, () => {
             console.log(`Serveur démarré sur http://localhost:${port}`);

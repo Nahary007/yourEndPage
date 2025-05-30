@@ -1,3 +1,4 @@
+import axios from 'axios';
 // utils.js
 
 /**
@@ -29,14 +30,43 @@ export const fileToDataUrl = (file) => {
 /**
  * Mock function to save data (would connect to a backend in a real app)
  */
-export const savePageData = async (data) => {
-  // This would be an API call in a real application
-  console.log('Saving page data:', data);
-  
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  return true;
+export const savePageData = async (pageData) => {
+  const token = localStorage.getItem('token');
+  const formData = new FormData();
+
+  formData.append('category', pageData.category);
+  formData.append('title', pageData.title);
+  formData.append('description', pageData.description);
+  formData.append('date', pageData.date);
+  formData.append('gifPositionX', pageData.gifPosition?.x);
+  formData.append('gifPositionY', pageData.gifPosition?.y);
+
+  if (pageData.image instanceof File) {
+    formData.append('image', pageData.image);
+  }
+
+  if (pageData.gif instanceof File) {
+    formData.append('gif', pageData.gif);
+  }
+  for (let pair of formData.entries()) {
+  console.log(pair[0], pair[1]);
+  }
+
+
+  try {
+    const response = await axios.post('http://localhost:4000/api/page/save', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erreur sauvegarde page :', error);
+    throw error;
+  }
 };
 
 /**

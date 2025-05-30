@@ -19,7 +19,7 @@ const RegisterForm = () => {
 
   const handleFileChange = (e) => {
   setImage(e.target.files[0]);
-};
+  };
 
   const [passwordStrength, setPasswordStrength] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);

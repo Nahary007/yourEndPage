@@ -19,7 +19,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/auth" element={<LoginForm />} /> 
-        <Route path="/CreateEndPage" element={<CreatePage />} /> 
         <Route
           path="/home"
           element={
@@ -41,6 +40,14 @@ function App() {
           element={
             <ProtectedRoute>
               <UpdateProfile />
+            </ProtectedRoute>
+          }
+        /> 
+        <Route
+          path="/CreateEndPage"
+          element={
+            <ProtectedRoute>
+              <CreatePage />
             </ProtectedRoute>
           }
         /> 
