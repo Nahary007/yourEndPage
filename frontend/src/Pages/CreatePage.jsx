@@ -23,31 +23,71 @@ const CreatePage = () => {
     setPageData(prev => ({ ...prev, ...data }));
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const dataUrl = await fileToDataUrl(file);
-        handleChange({ image: dataUrl });
-      } catch (error) {
-        console.error('Error processing image:', error);
-        alert('Failed to process image. Please try again.');
-      }
-    }
-  };
+const handleImageUrl = (url) => {
+  console.log("Image URL saisie :", url);
+  if (url) {
+    handleChange({ image: url });
+  } else {
+    handleChange({ image: null });
+  }
+};
 
-  const handleGifUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const dataUrl = await fileToDataUrl(file);
-        handleChange({ gif: dataUrl });
-      } catch (error) {
-        console.error('Error processing GIF:', error);
-        alert('Failed to process GIF. Please try again.');
-      }
+const handleImageUpload = async (e) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    console.log("Image uploadée depuis le disque :", file);
+    try {
+      // ici tu génères un dataUrl ou récupères un path depuis le backend (selon ta logique backend déjà faite)
+      const dataUrl = await fileToDataUrl(file); // ou récupère juste le chemin
+      handleChange({ image: dataUrl }); // on garde juste le fichier
+    } catch (error) {
+      console.error('Erreur lors du traitement de l’image :', error);
+      alert('Échec du traitement de l’image. Veuillez réessayer.');
     }
-  };
+  }
+};
+
+
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     try {
+  //       const dataUrl = await fileToDataUrl(file);
+  //       handleChange({ image: dataUrl });
+  //     } catch (error) {
+  //       console.error('Error processing image:', error);
+  //       alert('Failed to process image. Please try again.');
+  //     }
+  //   }
+  // };
+
+const handleGifUrl = (url) => {
+  console.log("GIF URL (via champ texte) :", url);
+  setPageData((prev) => ({ ...prev, gif: url }));
+};
+
+const handleGifUpload = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const url = URL.createObjectURL(file);
+    console.log("GIF URL (via fichier uploadé) :", url);
+    setPageData((prev) => ({ ...prev, gif: url }));
+  }
+};
+
+
+  // const handleGifUpload = async (e) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     try {
+  //       const dataUrl = await fileToDataUrl(file);
+  //       handleChange({ gif: dataUrl });
+  //     } catch (error) {
+  //       console.error('Error processing GIF:', error);
+  //       alert('Failed to process GIF. Please try again.');
+  //     }
+  //   }
+  // };
 
   const handleGifPositionChange = (position) => {
     handleChange({ gifPosition: position });
@@ -92,13 +132,16 @@ const CreatePage = () => {
           <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-150px)]">
             {/* Form Section */}
             <div className="w-full lg:w-1/2 h-full overflow-y-auto backdrop-blur-md bg-white/20 rounded-lg shadow-lg p-6 text-white">
-              <FormSection
-                pageData={pageData}
-                onChange={handleChange}
-                onImageUpload={handleImageUpload}
-                onGifUpload={handleGifUpload}
-                onSave={handleSave}
-              />
+            <FormSection
+              pageData={pageData}
+              onChange={handleChange}
+              onImageUpload={handleImageUpload}
+              onGifUpload={handleGifUpload}
+              onSave={handleSave}
+              onImageUrl={handleImageUrl}
+              onGifUrl={handleGifUrl}
+            />
+
             </div>
 
             {/* Preview Section */}
