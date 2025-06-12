@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Home from './Pages/home';
-import RegisterForm from './Pages/RegisterForm';
-import LoginForm from './Pages/LoginForm';
-import HomePage from './Pages/homePage';
+import Home from './pages/home';
+import RegisterForm from './pages/register';
+import LoginForm from './pages/login';
+import HomePage from './pages/home-page';
 import ProtectedRoute from './ProtectedRoute';
-import UpdateProfile from './Pages/UpdateProfile';
-import CreatePage from './Pages/CreatePage';
-import Myposts from './Pages/Myposts';
+import UpdateProfile from './pages/update-profile';
+import CreatePage from './pages/create-page';
+import Myposts from './pages/my-posts';
 import './index.css'
 import './App.css'
 
