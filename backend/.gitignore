@@ -1,0 +1,23 @@
+# Dépendances
+node_modules/
+
+# Environnement
+.env
+
+# Fichiers générés
+dist/
+build/
+
+# Fichiers de téléchargement
+uploads/
+
+# Fichiers de lock (si tu utilises plusieurs lock files)
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+
+# Système
+.DS_Store
+*.swp
