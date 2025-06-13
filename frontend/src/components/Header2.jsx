@@ -173,8 +173,6 @@ const Header2 = () => {
 
         </div>
       </div>
-
-      {/* ✅ Popup de confirmation */}
       {showPopup && user && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-xl p-6 w-96 text-center">
